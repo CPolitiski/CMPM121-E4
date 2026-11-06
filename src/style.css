@@ -1,5 +1,4 @@
-/* Neon Warden: the HUD panels tilt toward the screen like an arcade cabinet. */
-
+/* Neon Warden: Shared design values */
 :root {
   --color-cyan: #5ef2ff;
   --color-pink: #ff5ea8;
@@ -36,7 +35,6 @@
   --corner-radius: 10px;
 }
 
-/* General */
 * {
   box-sizing: border-box;
 }
@@ -58,7 +56,9 @@ body {
 
 .cabinet {
   display: grid;
-  grid-template-columns: var(--panel-width) var(--screen-width)
+  grid-template-columns:
+    var(--panel-width)
+    var(--screen-width)
     var(--panel-width);
   align-items: center;
   perspective: 900px;
@@ -77,7 +77,7 @@ body {
   transition: opacity 400ms, transform 400ms;
 }
 
-/* Each panel swings toward the screen and slightly overlaps its edge. */
+/* Panel tilt */
 .panel-left {
   transform-origin: right center;
   transform: translateX(var(--overlap)) rotateY(var(--tilt));
@@ -113,6 +113,7 @@ output {
   color: var(--color-yellow);
 }
 
+/* Lives and power */
 .pips,
 .cells {
   display: flex;
@@ -128,11 +129,16 @@ output {
 }
 
 .pip {
+  width: 22px;
   color: var(--color-pink);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: currentColor;
 }
 
 .cell {
+  flex: 1;
   color: var(--color-yellow);
+  border-radius: 2px;
 }
 
 .pip.lit,
@@ -145,6 +151,7 @@ output {
   background: currentColor;
 }
 
+/* Self-play badge */
 .badge {
   display: none;
   margin: 0;
@@ -163,6 +170,7 @@ output {
   display: block;
 }
 
+/* Game screen */
 .screen {
   position: relative;
   width: var(--screen-width);
@@ -181,6 +189,7 @@ output {
   height: 100%;
 }
 
+/* Route */
 .route {
   list-style: none;
   margin: 0;
@@ -195,6 +204,13 @@ output {
   gap: 10px;
   font-size: 12px;
   color: var(--color-muted);
+}
+
+.stop-dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
 }
 
 .stop[data-state="cleared"] {
@@ -218,6 +234,7 @@ output {
   color: var(--color-red);
 }
 
+/* Boss meter */
 .boss {
   color: var(--color-red);
 }
@@ -243,7 +260,7 @@ output {
   transition: transform 120ms linear;
 }
 
-/* Sector banners flip down from the top of the screen, then fold away. */
+/* Sector banners */
 .banner {
   position: absolute;
   inset: 22% -6% auto;
@@ -280,6 +297,7 @@ output {
   color: var(--color-text);
 }
 
+/* Caption */
 .caption {
   position: absolute;
   inset: auto 8% 6%;
@@ -299,6 +317,7 @@ output {
   transform: none;
 }
 
+/* Help text */
 .help {
   margin: 0;
   text-align: center;
@@ -306,7 +325,7 @@ output {
   color: var(--color-muted);
 }
 
-/* Impacts shake the whole cabinet; the panels keep their tilt while shaking. */
+/* Cabinet impact animations */
 .cabinet.shudder {
   animation: shudder 260ms linear;
 }
@@ -376,7 +395,7 @@ output {
   }
 }
 
-/* Narrow windows: stack the panels flat above and below the screen. */
+/* Responsive layout */
 @media (max-width: 920px) {
   .cabinet {
     grid-template-columns: var(--screen-width);
