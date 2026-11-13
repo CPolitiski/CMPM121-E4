@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { ENEMY_STATS, SECTORS, type Wave } from "./route.ts";
+import { SECTORS, type Wave } from "./route.ts";
 import {
   type Actor,
   type Arena,
@@ -315,20 +315,7 @@ export class GameScene extends Phaser.Scene implements Arena {
 
   summon(_kind: string, x: number, y: number): void {
     this.enemies.push(
-      new ShmupPrefabSprite(
-        this,
-        x,
-        y,
-        "drone",
-        2,
-        100,
-        13,
-        0.015,
-        true,
-        false,
-        x,
-        x < WIDTH / 2 ? 1 : -1,
-      ),
+      new ShmupPrefabSprite(this, x, y, "drone", x < WIDTH / 2 ? 1 : -1),
     );
   }
 
@@ -430,20 +417,11 @@ export class GameScene extends Phaser.Scene implements Arena {
 
       if (sectorTick !== wave.at + delay) continue;
 
-      const stats = ENEMY_STATS[wave.kind];
-
       const enemy = new ShmupPrefabSprite(
         this,
         x,
         y,
         wave.kind,
-        stats[0],
-        stats[1],
-        stats[2],
-        stats[3],
-        stats[4],
-        stats[5],
-        x,
         i % 2 === 0 ? 1 : -1,
       );
 
