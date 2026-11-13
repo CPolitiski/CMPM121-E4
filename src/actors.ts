@@ -84,6 +84,15 @@ export interface Controls {
   fire: boolean;
 }
 
+export interface RunTotals {
+  score: number;
+  lives: number;
+  kills: number;
+  hits: number;
+  continues: number;
+  bossDefeated: boolean;
+}
+
 export const MAX_POWER = 3;
 const SPEED = 4.2;
 const RESPAWN_GRACE = 120;

@@ -9,6 +9,7 @@ import {
   Enemy,
   Player,
   PowerUp,
+  type RunTotals,
   WIDTH,
 } from "../actors.ts";
 import type { Hud } from "../hud.ts";
@@ -33,7 +34,7 @@ export class PlayScene extends Phaser.Scene implements Arena {
   rng!: Rng;
   player!: Player;
   now = 0;
-  private run;
+  private run!: RunTotals;
   private attract = false;
   private pilot!: Pilot;
   private backdrop!: Backdrop;
@@ -68,6 +69,7 @@ export class PlayScene extends Phaser.Scene implements Arena {
       kills: 0,
       hits: 0,
       continues: 0,
+      bossDefeated: false,
     };
     this.enemies = [];
     this.shots = [];
@@ -341,7 +343,7 @@ export class PlayScene extends Phaser.Scene implements Arena {
   }
 
   private hurtPlayer(): void {
-    if (this.run.bossDefeted || this.gameOver || !this.player.vulnerable) {
+    if (this.run.bossDefeated || this.gameOver || !this.player.vulnerable) {
       return;
     }
     this.run.hits++;
@@ -372,7 +374,7 @@ export class PlayScene extends Phaser.Scene implements Arena {
     this.victoryAt = this.now + VICTORY_TICKS;
     this.hud.setBoss(0);
     this.hud.announce("WARDEN DOWN", "The lanes are open");
-    console.log("victory lap: ship protected =", this.run.bossDefeted);
+    console.log("victory lap: ship protected =", this.run.bossDefeated);
     for (const bullet of this.bullets) {
       this.burst(bullet.x, bullet.y, 2, TINTS.spark);
       bullet.setActive(false);

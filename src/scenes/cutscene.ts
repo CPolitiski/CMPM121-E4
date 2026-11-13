@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { HEIGHT, WIDTH } from "../actors.ts";
+import { HEIGHT, type RunTotals, WIDTH } from "../actors.ts";
 import type { Hud } from "../hud.ts";
 import { play } from "../sounds.ts";
 import { TINTS } from "../textures.ts";
@@ -17,13 +17,13 @@ const CREDITS_AT = 11;
 const RETURN_AT = 18;
 
 export interface CutsceneData {
-  run: { score: number; kills: number; hits: number; continues: number };
+  run: RunTotals;
   afterDemo: boolean;
 }
 
 export class CutsceneScene extends Phaser.Scene {
   private backdrop!: Backdrop;
-  private run!: CutsceneData["run"];
+  private run!: RunTotals;
   private afterDemo = false;
 
   constructor(private readonly hud: Hud) {
